@@ -16,19 +16,46 @@ function getBarCodeList(tags){
 	return barCodeList;
 }
 
-function isAppointPromotion(barCodeList){
+function getAppointPromotion(tags){
 	const appointPromotion=loadPromotions()[1].items;
 	let flag=0;
-	barCodeList.forEach((barCode)=>{
+	let sum=0;
+	tags.forEach((tag)=>{
 		appointPromotion.forEach((item)=>{
-			if(barCode===item) flag=1;
+			if(tag.split(" x ")[0]===item){
+				flag=1;
+				const item=getItem(tag);
+				sum+=(item.price/2)*parseInt(tag.split(" x ")[1]);
+			}
+			else{
+				const item=getItem(tag);
+				sum+=item.price*parseInt(tag.split(" x ")[1]);
+			} 
+
 		});
 	});
-	if(flag==0) return false;
-	else return true;
+	if(flag==0) return 0;
+	else {
+		return sum;
+	}
 }
 
+function getFull30Minus6(tags){
+	let sum=0;
+	tags.forEach((tag)=>{
+		const item=getItem(tag);
+		sum+=item.price*parseInt(tag.split(" x ")[1]);
+	});
+	if(sum>=30){
+		sum-=parseInt(sum/3)*6;
+	}
+	else return 0;
+}
+
+function getOldSum(tags){
+
+}
 function bestCharge(selectedItems) {
-	
+
   	return /*TODO*/;
 }
