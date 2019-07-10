@@ -53,8 +53,23 @@ function getFull30Minus6(tags){
 }
 
 function getOldSum(tags){
-
+	let sum=0;
+	tags.forEach((tag)=>{
+		const item=getItem(tag);
+		sum+=item.price*parseInt(tag.split(" x ")[1]);
+	});
+	return sum;
 }
+
+function createMiddleString(tags){
+	let middleString="";
+	tags.forEach((tag)=>{
+		const item=getItem(tag);
+		let sum=item.price*parseInt(tag.split(" x ")[1]);
+		middleString+=`${item.name} x ${tag.split(" x ")[1]} = ${sum}元\n`;
+	});
+}
+
 function bestCharge(selectedItems) {
 
   	return /*TODO*/;
