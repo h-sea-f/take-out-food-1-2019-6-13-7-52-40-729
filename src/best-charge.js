@@ -107,4 +107,5 @@ function createCharge(selectedItems){
 }
 function bestCharge(selectedItems) {
 	return createCharge(selectedItems);
+	
 }
