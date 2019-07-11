@@ -9,51 +9,26 @@ function getItem(tag){
 	return item;
 }
 
-// function getBarCodeList(tags){
-// 	const barCodeList=tags.map((tag)=>{
-// 		return tag.(" x ")[0];
-// 	});
-// 	return barCodeList;
-// }
-
 function getAppointPromotion(tags){
 	const appointPromotion=loadPromotions()[1].items;
-	// console.log(appointPromotion);
 	let flag=0;
 	let sum=0;
-	// tags.forEach((tag)=>{
-	// 	appointPromotion.forEach((item)=>{
-	// 		if(tag.split(" x ")[0]===item){
-	// 			flag=1;
-	// 			const item=getItem(tag);
-	// 			sum+=(item.price/2)*parseInt(tag.split(" x ")[1]);
-	// 		}
-	// 		else{
-	// 			const item=getItem(tag);
-	// 			sum+=item.price*parseInt(tag.split(" x ")[1]);
-	// 		} 
-
-	// 	});
-	// });
 	for(let tag in tags){
 		let isPromotion=0;
-		console.log(tags[tag].split(" x ")[0]);
 		for(let barCode in appointPromotion){
-			console.log(appointPromotion[barCode]);
 			if(tags[tag].split(" x ")[0]===appointPromotion[barCode]){
 				flag=1;
 				isPromotion=1;
 				const item=getItem(tags[tag]);
-				sum+=(item.price/2)*parseInt(tag.split(" x ")[1]);
+				sum+=(item.price/2)*parseInt(tags[tag].split(" x ")[1]);
 				break;
 			}
 		}
 		if(isPromotion===0){
 			const item=getItem(tags[tag]);
-			sum+=(item.price)*parseInt(tag.split(" x ")[1]);
+			sum+=(item.price)*parseInt(tags[tag].split(" x ")[1]);
 		}
 	}
-	console.log("指定"+sum);
 	if(flag==0) return 0;
 	else {
 		return sum;
@@ -68,7 +43,6 @@ function getFull30Minus6(tags){
 	});
 	if(sum>=30){
 		sum-=parseInt(sum/30)*6;
-		// console.log("30-6:"+sum);
 		return sum;
 	}
 	else return 0;
